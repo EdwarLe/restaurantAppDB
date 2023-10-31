@@ -1,12 +1,18 @@
 import express from 'express'
 import { router } from './routes/routes.js'
+import { AppError } from './errors/appError.js'
+import { globalErrorHandler } from './errors/errors.controller.js'
 
 const app = express()
 
 app.use(express.json())
 
-app.use("api/v1", router)
+app.use('/api/v1', router)
 
-app.listen(3100, () => {
-    console.log('Port online on port 3100')
+app.all('*', (req, res, next) => {
+    next(new AppError(`Can´t find ${req.originalUrl} on this server`, 404))
 })
+
+app.use(globalErrorHandler)
+
+export default app

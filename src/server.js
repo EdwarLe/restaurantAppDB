@@ -1,6 +1,18 @@
-import app from './app.js'
-import { envs } from './config/environments/environments.js'
+import app from "./app.js";
+import { authenticate, syncUp } from "./config/database/database.js";
+import { envs } from "./config/environments/environments.js";
+
+const main = async () => {
+  try {
+    await authenticate();
+    await syncUp();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+main();
 
 app.listen(envs.PORT, () => {
-    console.log('Port online on port 3100')
-})
+  console.log(`Server online on port ${envs.PORT}`);
+});
