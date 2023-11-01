@@ -33,4 +33,5 @@ export class UsersService {
   async deleteUser(user) {
     return await user.update({ status: false });
   }
+
 }

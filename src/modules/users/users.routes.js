@@ -1,13 +1,24 @@
 import { Router } from "express";
-import { deleteUser, login, signup, updateUser } from "./users.controller.js";
-import { validateExistUser } from "./users.middleware.js";
+import {
+  deleteUser,
+  findOneOrder,
+  findOrders,
+  login,
+  signup,
+  updateUser,
+} from "./users.controller.js";
+import { protect, protectAccount, validateExistUser } from "./users.middleware.js";
+import { validateExistOrder } from "../orders/order.middleware.js";
 
-export const router = Router()
+export const router = Router();
 
-router.post('/signup', signup)
-router.post('/login', login)
-// router.get('/orders', findOrders)
+router.post("/signup", signup);
+router.post("/login", login);
 
-// router.get('/orders/:id', findOneOrder)
-router.patch('/:id', validateExistUser, updateUser)
-router.delete('/:id', validateExistUser, deleteUser)
+router.use(protect);
+
+router.get("/orders", findOrders);
+
+router.get('/orders/:id', validateExistOrder, findOneOrder)
+router.patch("/:id", validateExistUser, protectAccount,  updateUser);
+router.delete("/:id", validateExistUser, protectAccount, deleteUser);

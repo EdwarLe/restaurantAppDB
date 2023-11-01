@@ -1,6 +1,7 @@
 import { verifyPassword } from "../../config/plugins/encripted-passwords.plugin.js"
 import generateJWT from "../../config/plugins/generate-jwt.plugin.js";
 import { AppError, catchAsync } from "../../errors/index.js";
+import { ordersService } from "../orders/orders.controller.js";
 import { validateLogin, validatePartialUser, validateRegister } from "./users.schema.js";
 import { UsersService } from "./users.service.js";
 
@@ -84,4 +85,26 @@ export const deleteUser = catchAsync(async(req, res, next) => {
     await userService.deleteUser(user)
 
     return res.status(201).json(null)
+})
+
+export const findOrders = catchAsync(async(req, res,next) => {
+  const {sessionUser} = req
+  
+  const orders = await ordersService.findAllOrders(sessionUser.id)
+
+  return res.status(201).json(orders)
+})
+
+export const findOneOrder = catchAsync(async(req, res, next) => {
+  const {sessionUser} = req
+  const {order} = req
+
+  const orderByUser = await ordersService.findOneOrder(order.id)
+
+  if(order.userId !== sessionUser.id) {
+    return next(new AppError('Sorry you don´t have permission to perform this action'), 401)
+  }
+
+  return res.status(201).json(orderByUser)
+
 })
