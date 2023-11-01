@@ -1,17 +1,17 @@
 import { AppError, catchAsync } from "../../errors/index.js";
 import { MealsService } from "./meals.service.js";
 
-const mealsService = new MealsService()
+const mealsService = new MealsService();
 
-export const validateExistMeal = catchAsync(async(req, res, next) => {
-    const {id} = req.params
+export const validateExistMeal = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
 
-    const meal = await mealsService.findOneMeal(id)
+  const meal = await mealsService.findOneMeal(id);
 
-    if(!meal) {
-        return next(new AppError(`Meal with id: ${id}, was not found`, 401))
-    }
+  if (!meal) {
+    return next(new AppError(`Meal with id: ${id}, was not found`, 401));
+  }
 
-    req.meal = meal
-    next()
-})
+  req.meal = meal;
+  next();
+});

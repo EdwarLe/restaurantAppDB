@@ -7,11 +7,11 @@ export class UsersService {
 
   async findOneUser(id) {
     return await Users.findOne({
-        where: {
-            id,
-            status: true
-        }
-    })
+      where: {
+        id,
+        status: true,
+      },
+    });
   }
 
   async findUserByEmail(email) {
@@ -33,5 +33,4 @@ export class UsersService {
   async deleteUser(user) {
     return await user.update({ status: false });
   }
-
 }

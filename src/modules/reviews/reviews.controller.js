@@ -33,8 +33,10 @@ export const updateReview = catchAsync(async (req, res, next) => {
   const { restaurant } = req;
   const { sessionUser } = req;
 
-  if(sessionUser.id !== review.userId) {
-    return next(new AppError('You don´t have permission to make this changes', 401))
+  if (sessionUser.id !== review.userId) {
+    return next(
+      new AppError("You don´t have permission to make this changes", 401)
+    );
   }
 
   const { hasError, errorMessage, reviewData } = validateReview(req.body);
@@ -64,8 +66,10 @@ export const deleteReview = catchAsync(async (req, res, next) => {
   const { restaurant } = req;
   const { sessionUser } = req;
 
-  if(sessionUser.id !== review.userId) {
-    return next(new AppError('You don´t have permission to make this changes', 401))
+  if (sessionUser.id !== review.userId) {
+    return next(
+      new AppError("You don´t have permission to make this changes", 401)
+    );
   }
 
   if (review.restaurant_id !== restaurant.id) {

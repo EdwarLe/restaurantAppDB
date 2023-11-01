@@ -7,7 +7,11 @@ import {
   signup,
   updateUser,
 } from "./users.controller.js";
-import { protect, protectAccount, validateExistUser } from "./users.middleware.js";
+import {
+  protect,
+  protectAccount,
+  validateExistUser,
+} from "./users.middleware.js";
 import { validateExistOrder } from "../orders/order.middleware.js";
 
 export const router = Router();
@@ -19,6 +23,6 @@ router.use(protect);
 
 router.get("/orders", findOrders);
 
-router.get('/orders/:id', validateExistOrder, findOneOrder)
-router.patch("/:id", validateExistUser, protectAccount,  updateUser);
+router.get("/orders/:id", validateExistOrder, findOneOrder);
+router.patch("/:id", validateExistUser, protectAccount, updateUser);
 router.delete("/:id", validateExistUser, protectAccount, deleteUser);

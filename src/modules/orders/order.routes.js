@@ -16,6 +16,7 @@ router.post("/", CreateOrder);
 
 router.get("/me", findAllOrders);
 
-router.route("/:id")
-.patch(validateExistOrder, updateOrder)
-.delete(validateExistOrder, deteleOrder);
+router
+  .route("/:id")
+  .patch(validateExistOrder, updateOrder)
+  .delete(validateExistOrder, deteleOrder);

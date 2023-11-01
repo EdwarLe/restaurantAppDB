@@ -3,7 +3,7 @@ import { extractValidationData } from "../../common/utils/extractErrorData.js";
 
 const reviewSchema = z.object({
   comment: z.string().min(4).max(500),
-  rating: z.number().max(10).positive()
+  rating: z.number().max(10).positive(),
 });
 
 export const validateReview = (data) => {
@@ -15,5 +15,5 @@ export const validateReview = (data) => {
     data: reviewData,
   } = extractValidationData(result);
 
-  return {hasError, errorMessage, reviewData};
+  return { hasError, errorMessage, reviewData };
 };

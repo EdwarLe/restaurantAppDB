@@ -6,7 +6,7 @@ import { envs } from "./config/environments/environments.js";
 const main = async () => {
   try {
     await authenticate();
-    initModel()
+    initModel();
     await syncUp();
   } catch (error) {
     console.log(error);

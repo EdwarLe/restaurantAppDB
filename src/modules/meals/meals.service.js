@@ -13,10 +13,10 @@ export class MealsService {
       },
       include: [
         {
-            model: Restaurants,
-            as: 'mealsFromRestaurant'
-        }
-      ]
+          model: Restaurants,
+          as: "mealsFromRestaurant",
+        },
+      ],
     });
   }
   async findOneMeal(id) {
@@ -27,18 +27,18 @@ export class MealsService {
       },
       include: [
         {
-            model: Restaurants,
-            as: 'mealsFromRestaurant'
-        }
-      ]
+          model: Restaurants,
+          as: "mealsFromRestaurant",
+        },
+      ],
     });
   }
 
   async updateMeal(meal, data) {
-    return await meal.update(data)
+    return await meal.update(data);
   }
 
   async deleteMeal(meal) {
-    return await meal.update({status: false})
+    return await meal.update({ status: false });
   }
 }
