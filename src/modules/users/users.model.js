@@ -1,8 +1,9 @@
 import { DataTypes } from "sequelize"
-import sequelize from "../config/database/database.js"
+import sequelize from "../../config/database/database.js"
+import { encryptedPassword } from "../../config/plugins/encripted-passwords.plugin.js"
 
 const Users = sequelize.define('users',{
-    userId: {
+    id: {
         primaryKey: true,
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -34,6 +35,11 @@ const Users = sequelize.define('users',{
         defaultValue: 'normal'
     }
 
-})
+},{
+hooks: {
+    beforeCreate: async(user) => {
+        user.password = await encryptedPassword(user.password)
+    }
+}})
 
 export default Users
